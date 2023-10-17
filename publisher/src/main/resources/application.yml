@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /
+    application-display-name: Leads Publisher
+  port: 8081
+spring:
+  application:
+    name: leads-publisher
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

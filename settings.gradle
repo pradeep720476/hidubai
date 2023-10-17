@@ -1,0 +1,5 @@
+rootProject.name = 'hidubai'
+include 'shared-rbmq'
+include 'publisher'
+include 'subscriber'
+
