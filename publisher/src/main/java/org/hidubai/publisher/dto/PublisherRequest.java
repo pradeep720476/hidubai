@@ -2,8 +2,10 @@ package org.hidubai.publisher.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hidubai.publisher.validators.EnumValue;
 import org.hidubai.rabbitmq.constant.CommunicationType;
 
@@ -16,6 +18,8 @@ import java.util.Objects;
 
 @Data
 @Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class PublisherRequest implements Serializable {
     private static final long serialVersionUID = 123456789L;
     @JsonProperty("lead_id")

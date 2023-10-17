@@ -23,7 +23,7 @@ public class PublisherService implements Publisher {
 
     private QueueSelectionStrategy queueSelectionStrategy;
 
-    PublisherService(RabbitTemplate rabbitTemplate, QueueSelectionStrategy queueSelectionStrategy) {
+    public PublisherService(RabbitTemplate rabbitTemplate, QueueSelectionStrategy queueSelectionStrategy) {
         this.rabbitTemplate = rabbitTemplate;
         this.queueSelectionStrategy = queueSelectionStrategy;
     }
