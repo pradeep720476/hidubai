@@ -41,7 +41,7 @@ public class PublisherRequest implements Serializable {
     private String leadEmailId;
 
     @JsonProperty("preferred_mobile_communication_mode")
-    @NotNull
+    @NotBlank(message = "preferred_mobile_communication_mode is requried")
     @EnumValue(values = {"SMS", "WHATSAPP", "PUSH_NOTIFICATION"})
     private String communicationMode;
 
