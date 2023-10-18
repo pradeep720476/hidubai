@@ -7,24 +7,25 @@ import java.util.Objects;
 
 public class EnumValidator implements ConstraintValidator<EnumValue, String> {
 
-    private Class<? extends Enum> enumClass;
+    private EnumValue enumValue;
 
     @Override
     public void initialize(EnumValue constraintAnnotation) {
-        enumClass = constraintAnnotation.enumClass();
+        this.enumValue = constraintAnnotation;
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (Objects.isNull(value))
+
+        if (value == null)
             return true;
 
-        try {
-            Enum.valueOf(enumClass, value);
-            return true;
-        } catch (IllegalArgumentException illegalArgumentException) {
-            return false;
+        String[] enums = this.enumValue.values();
+        for (String enumNames : enums) {
+            if (enumNames.contains(value))
+                return true;
         }
-
+        return false;
     }
+
 }

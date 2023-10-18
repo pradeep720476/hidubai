@@ -13,7 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class MQRequest implements Serializable {
-    private String mode;
     private Integer leadId;
     private String source;
 

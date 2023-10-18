@@ -1,11 +1,13 @@
 package org.hidubai.publisher.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hidubai.publisher.validators.EnumValue;
 import org.hidubai.rabbitmq.constant.CommunicationType;
 
 import java.io.Serializable;
@@ -39,8 +41,9 @@ public class PublisherRequest implements Serializable {
     private String leadEmailId;
 
     @JsonProperty("preferred_mobile_communication_mode")
-    //@EnumValue(enumClass = CommunicationType.class)
-    private CommunicationType communicationMode;
+    @NotNull
+    @EnumValue(values = {"SMS", "WHATSAPP", "PUSH_NOTIFICATION"})
+    private String communicationMode;
 
     @JsonProperty("lead_message")
     @NotNull(message = "lead_message is mandatory")
