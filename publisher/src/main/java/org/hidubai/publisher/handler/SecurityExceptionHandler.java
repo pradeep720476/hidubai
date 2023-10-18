@@ -10,7 +10,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
-import static org.hidubai.publisher.constants.ErrorCode.AUTH_ERROR_20001;
+import static org.hidubai.publisher.constants.HttpCode.AUTH_ERROR_20001;
 
 @ControllerAdvice
 public class SecurityExceptionHandler {
@@ -20,7 +20,7 @@ public class SecurityExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<PublisherResponse> accessDeniedExceptionHandler(AccessDeniedException accessDeniedException, @RequestBody(required = false) PublisherRequest publisherRequest) {
-        LOGGER.debug("Error Response: {}", accessDeniedException.getCause());
+        LOGGER.error("Error Response: {}", accessDeniedException.getCause());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
                 .code(String.valueOf(AUTH_ERROR_20001.getCode()))
                 .message(accessDeniedException.getMessage())
@@ -31,7 +31,7 @@ public class SecurityExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<PublisherResponse> authenticationExceptionHandler(AuthenticationException authenticationException, @RequestBody(required = false) PublisherRequest publisherRequest) {
-        LOGGER.debug("Error Response: {}", authenticationException.getCause());
+        LOGGER.error("Error Response: {}", authenticationException.getCause());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
                 .code(String.valueOf(AUTH_ERROR_20001.getCode()))
                 .message(authenticationException.getMessage())

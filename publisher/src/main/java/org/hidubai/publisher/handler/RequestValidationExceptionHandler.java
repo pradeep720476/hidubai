@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
-import static org.hidubai.publisher.constants.ErrorCode.VALIDATION_ERROR_10001;
+import static org.hidubai.publisher.constants.HttpCode.VALIDATION_ERROR_10001;
 
 @ControllerAdvice
 public class RequestValidationExceptionHandler {
@@ -24,7 +24,7 @@ public class RequestValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public PublisherResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-        LOGGER.info("Error Response: {}", PublisherResponse.builder()
+        LOGGER.error("Error Response: {}", PublisherResponse.builder()
                 .code(String.valueOf(VALIDATION_ERROR_10001))
                 .message(messageHelper(exception.getBindingResult().getFieldErrors()))
                 .build());

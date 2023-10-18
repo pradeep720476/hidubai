@@ -23,9 +23,8 @@ import java.util.Objects;
 public class PublisherRequest implements Serializable {
     private static final long serialVersionUID = 123456789L;
     @JsonProperty("lead_id")
-    @NotNull(message = "lead id cannot be null or must be positive number without decimal")
-    @Min(message = "lead id cannot be null or must be positive number without decimal", value = 0)
-    @Max(message = "lead id cannot be null or must be positive number without decimal", value = Integer.MAX_VALUE)
+    @NotNull(message = "lead id cannot be empty or must be positive number without decimal")
+    @Max(message = "lead id cannot be empty or must be positive number without decimal", value = Integer.MAX_VALUE)
     private Integer leadId;
     @JsonProperty("source")
     private String source;
@@ -36,7 +35,7 @@ public class PublisherRequest implements Serializable {
     @Pattern(regexp = "^\\([0-9]{3}\\)[0-9]{3}-[0-9]{4}$", message = "Invalid international lead_mobile_number format: ex: (123)123-1234")
     private String leadMobileNumber;
     @JsonProperty("lead_email_id")
-    @Email(message = "Invalid email id formate ex : anything@dmain.com")
+    @Email(regexp = "^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$", message = "Invalid email id formate ex : anything@domain.com")
     private String leadEmailId;
 
     @JsonProperty("preferred_mobile_communication_mode")
@@ -46,7 +45,7 @@ public class PublisherRequest implements Serializable {
     @JsonProperty("lead_message")
     @NotNull(message = "lead_message is mandatory")
     @NotBlank(message = "lead_message is mandatory")
-    @Size(message = "lead_message should be more than 10 character", min = 10)
+    @Size(message = "lead_message should be more than 10 character", min = 11)
     private String leadMessage;
 
 

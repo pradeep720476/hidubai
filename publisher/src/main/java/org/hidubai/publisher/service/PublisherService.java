@@ -2,7 +2,7 @@ package org.hidubai.publisher.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hidubai.publisher.config.MQConnectionDetail;
-import org.hidubai.publisher.constants.ErrorCode;
+import org.hidubai.publisher.constants.HttpCode;
 import org.hidubai.publisher.dto.PublisherRequest;
 import org.hidubai.publisher.dto.PublisherResponse;
 import org.hidubai.publisher.stratergy.QueueSelectionStrategy;
@@ -36,7 +36,7 @@ public class PublisherService implements Publisher {
     public PublisherResponse sendMessage(PublisherRequest publisherRequest) {
         List<String> selectQueue = queueSelectionStrategy.selectQueue(publisherRequest);
         LOGGER.info(MessageFormat.format("Publishing Message to Rabit MQ Exchange Name: {0}", "LeadsMQ"));
-        LOGGER.info(MessageFormat.format("Message info: LeadId:{0}, Mode: {1}", publisherRequest.getLeadId(), publisherRequest.getCommunicationMode().name()));
+        LOGGER.debug(MessageFormat.format("Message info: LeadId:{0}, Mode: {1}", publisherRequest.getLeadId(), publisherRequest.getCommunicationMode().name()));
         selectQueue.stream().forEach((queueName) -> {
             try {
                 MQRequest request = MQRequest.builder()
@@ -57,8 +57,8 @@ public class PublisherService implements Publisher {
         });
 
         return PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
-                .code(String.valueOf(ErrorCode.SUCCESS.getCode()))
-                .message(ErrorCode.SUCCESS.name()).build();
+                .code(HttpCode.PUBLISHED.name())
+                .message("Message has been published successfully.").build();
 
     }
 
