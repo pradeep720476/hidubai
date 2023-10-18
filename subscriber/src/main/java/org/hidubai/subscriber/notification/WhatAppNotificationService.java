@@ -1,8 +1,7 @@
-package org.hidubai.javasubscriber.notification;
+package org.hidubai.subscriber.notification;
 
 
 import org.hidubai.rabbitmq.constant.ClientChannel;
-import org.hidubai.rabbitmq.constant.CommunicationType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

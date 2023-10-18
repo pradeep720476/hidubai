@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hidubai.publisher.validators.EnumValue;
 import org.hidubai.rabbitmq.constant.CommunicationType;
 
 import java.io.Serializable;
@@ -14,6 +13,7 @@ import java.util.Objects;
 
 /**
  * TODO: @assumption International Format of USA /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/ format: (123)123-1234
+ * TODO: @assumption
  */
 
 @Data

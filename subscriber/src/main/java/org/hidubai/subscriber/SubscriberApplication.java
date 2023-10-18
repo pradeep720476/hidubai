@@ -1,12 +1,12 @@
-package org.hidubai.javasubscriber;
+package org.hidubai.subscriber;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import org.hidubai.javasubscriber.factory.SubscriberFactory;
-import org.hidubai.javasubscriber.notification.EmailNotificationService;
-import org.hidubai.javasubscriber.notification.Notification;
+import org.hidubai.subscriber.factory.SubscriberFactory;
+import org.hidubai.subscriber.notification.EmailNotificationService;
+import org.hidubai.subscriber.notification.Notification;
 import org.hidubai.rabbitmq.constant.ClientChannel;
 import org.hidubai.rabbitmq.dto.MQRequest;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class SubscriberApplication {
             emailThread.start();
             while (true) {
                 LOGGER.info("Main Thread is Running");
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             }
 
         } catch (IOException | InterruptedException | TimeoutException e) {

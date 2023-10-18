@@ -3,6 +3,7 @@ server:
     context-path: /
     application-display-name: Leads Publisher
   port: 8081
+
 spring:
   application:
     name: leads-publisher
@@ -11,3 +12,15 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+api:
+  user:
+    name: pradeep
+    password: admit
+
+rbmq:
+  exchange-name: "leads-direct-exchange"
+  email-channel-name: "email-channel"
+  mobile-channel-name: "mobile-channel"
+
+

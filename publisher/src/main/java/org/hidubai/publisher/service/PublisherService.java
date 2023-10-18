@@ -1,6 +1,7 @@
 package org.hidubai.publisher.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hidubai.publisher.config.MQConnectionDetail;
 import org.hidubai.publisher.constants.ErrorCode;
 import org.hidubai.publisher.dto.PublisherRequest;
 import org.hidubai.publisher.dto.PublisherResponse;
@@ -23,9 +24,12 @@ public class PublisherService implements Publisher {
 
     private QueueSelectionStrategy queueSelectionStrategy;
 
-    public PublisherService(RabbitTemplate rabbitTemplate, QueueSelectionStrategy queueSelectionStrategy) {
+    private MQConnectionDetail mqConnectionDetail;
+
+    public PublisherService(RabbitTemplate rabbitTemplate, QueueSelectionStrategy queueSelectionStrategy, MQConnectionDetail mqConnectionDetail) {
         this.rabbitTemplate = rabbitTemplate;
         this.queueSelectionStrategy = queueSelectionStrategy;
+        this.mqConnectionDetail = mqConnectionDetail;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class PublisherService implements Publisher {
                         .build();
                 ObjectMapper objectMapper = new ObjectMapper();
                 String json = objectMapper.writeValueAsString(request);
-                rabbitTemplate.convertAndSend("leads-direct-exchange", queueName, json);
+                rabbitTemplate.convertAndSend(mqConnectionDetail.getExchangeName(), queueName, json);
             } catch (Exception exception) {
                 LOGGER.error(MessageFormat.format("Error while Publishing the Message for lead_id:{0} : caused: {1}", publisherRequest.getLeadId(), exception.getMessage()));
                 throw new AmqpException(exception.getMessage());
@@ -57,6 +61,5 @@ public class PublisherService implements Publisher {
                 .message(ErrorCode.SUCCESS.name()).build();
 
     }
-
 
 }

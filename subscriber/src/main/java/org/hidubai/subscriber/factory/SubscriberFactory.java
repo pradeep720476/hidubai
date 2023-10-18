@@ -1,9 +1,9 @@
-package org.hidubai.javasubscriber.factory;
+package org.hidubai.subscriber.factory;
 
-import org.hidubai.javasubscriber.notification.Notification;
-import org.hidubai.javasubscriber.notification.PushNotificationService;
-import org.hidubai.javasubscriber.notification.SMSNotificationService;
-import org.hidubai.javasubscriber.notification.WhatAppNotificationService;
+import org.hidubai.subscriber.notification.Notification;
+import org.hidubai.subscriber.notification.PushNotificationService;
+import org.hidubai.subscriber.notification.SMSNotificationService;
+import org.hidubai.subscriber.notification.WhatAppNotificationService;
 import org.hidubai.rabbitmq.constant.CommunicationType;
 
 import java.util.Optional;

@@ -1,7 +1,6 @@
-package org.hidubai.javasubscriber.notification;
+package org.hidubai.subscriber.notification;
 
 import org.hidubai.rabbitmq.constant.ClientChannel;
-import org.hidubai.rabbitmq.constant.CommunicationType;
 
 public interface Notification {
 

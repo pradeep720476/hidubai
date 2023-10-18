@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import static org.hidubai.publisher.constants.ErrorCode.AUTH_ERROR_20001;
@@ -23,6 +24,17 @@ public class SecurityExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
                 .code(String.valueOf(AUTH_ERROR_20001.getCode()))
                 .message(accessDeniedException.getMessage())
+                .build());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<PublisherResponse> authenticationExceptionHandler(AuthenticationException authenticationException, @RequestBody(required = false) PublisherRequest publisherRequest) {
+        LOGGER.debug("Error Response: {}", authenticationException.getCause());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
+                .code(String.valueOf(AUTH_ERROR_20001.getCode()))
+                .message(authenticationException.getMessage())
                 .build());
     }
 }

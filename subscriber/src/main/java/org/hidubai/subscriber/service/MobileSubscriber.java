@@ -1,4 +1,4 @@
-package org.hidubai.javasubscriber.service;
+package org.hidubai.subscriber.service;
 
 import org.hidubai.rabbitmq.dto.MQRequest;
 
