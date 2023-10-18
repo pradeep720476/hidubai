@@ -45,7 +45,7 @@ public class RabitMQExceptionHandlerTest {
     @Test
     public void testAmqpExceptionTest() throws Exception {
         doThrow(AmqpException.class).when(publisherService).sendMessage(any());
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(csrf()).with(httpBasic("pradeep","admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(csrf()).with(httpBasic("hidubai","admit"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         " \"lead_id\" :123,\n" +

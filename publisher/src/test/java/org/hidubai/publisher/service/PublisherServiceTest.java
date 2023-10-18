@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hidubai.publisher.config.MQConnectionDetail;
 import org.hidubai.publisher.dto.PublisherRequest;
 import org.hidubai.publisher.stratergy.MultipleQueueSelectionStrategy;
+import org.hidubai.rabbitmq.constant.CommunicationType;
 import org.hidubai.rabbitmq.dto.MQRequest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,8 +42,8 @@ public class PublisherServiceTest {
     private MQConnectionDetail mqConnectionDetail;
 
     @BeforeEach
-    public void setUp(){
-        publisherService = new PublisherService(rabbitTemplate,multipleQueueSelectionStrategy,mqConnectionDetail);
+    public void setUp() {
+        publisherService = new PublisherService(rabbitTemplate, multipleQueueSelectionStrategy, mqConnectionDetail);
     }
 
     @Test
@@ -52,9 +53,9 @@ public class PublisherServiceTest {
         ObjectMapper mapper = new ObjectMapper();
         PublisherRequest publisherRequest = mapper.readValue(resource.getInputStream(), PublisherRequest.class);
         MQRequest request = MQRequest.builder()
-                .mode(publisherRequest.getCommunicationMode().name()).leadId(publisherRequest.getLeadId())
+                .leadId(publisherRequest.getLeadId())
                 .leadMessage(publisherRequest.getLeadMessage())
-                .communicationMode(publisherRequest.getCommunicationMode())
+                .communicationMode(CommunicationType.valueOf(publisherRequest.getCommunicationMode()))
                 .leadName(publisherRequest.getLeadName())
                 .source(publisherRequest.getSource())
                 .leadEmailId(publisherRequest.getLeadEmailId()).leadMobileNumber(publisherRequest.getLeadMobileNumber())
@@ -68,7 +69,6 @@ public class PublisherServiceTest {
     }
 
 
-
     @Test
     public void testPublishBothQueueMessageTest() throws IOException {
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -76,9 +76,9 @@ public class PublisherServiceTest {
         ObjectMapper mapper = new ObjectMapper();
         PublisherRequest publisherRequest = mapper.readValue(resource.getInputStream(), PublisherRequest.class);
         MQRequest request = MQRequest.builder()
-                .mode(publisherRequest.getCommunicationMode().name()).leadId(publisherRequest.getLeadId())
+                .leadId(publisherRequest.getLeadId())
                 .leadMessage(publisherRequest.getLeadMessage())
-                .communicationMode(publisherRequest.getCommunicationMode())
+                .communicationMode(CommunicationType.valueOf(publisherRequest.getCommunicationMode()))
                 .leadName(publisherRequest.getLeadName())
                 .source(publisherRequest.getSource())
                 .leadEmailId(publisherRequest.getLeadEmailId()).leadMobileNumber(publisherRequest.getLeadMobileNumber())
@@ -97,9 +97,9 @@ public class PublisherServiceTest {
         ObjectMapper mapper = new ObjectMapper();
         PublisherRequest publisherRequest = mapper.readValue(resource.getInputStream(), PublisherRequest.class);
         MQRequest request = MQRequest.builder()
-                .mode(publisherRequest.getCommunicationMode().name()).leadId(publisherRequest.getLeadId())
+                .leadId(publisherRequest.getLeadId())
                 .leadMessage(publisherRequest.getLeadMessage())
-                .communicationMode(publisherRequest.getCommunicationMode())
+                .communicationMode(CommunicationType.valueOf(publisherRequest.getCommunicationMode()))
                 .leadName(publisherRequest.getLeadName())
                 .source(publisherRequest.getSource())
                 .leadEmailId(publisherRequest.getLeadEmailId()).leadMobileNumber(publisherRequest.getLeadMobileNumber())

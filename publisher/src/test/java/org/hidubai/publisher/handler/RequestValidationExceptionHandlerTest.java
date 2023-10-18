@@ -22,7 +22,7 @@ public class RequestValidationExceptionHandlerTest {
 
     @Test
     public void handleMethodArgumentNotValidExceptionLeadIdNullTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("pradeep","admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("hidubai","admit"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 " \"lead_id\" :null,\n" +
@@ -32,12 +32,12 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("lead id cannot be null or must be positive number without decimal"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("lead id cannot be empty or must be positive number without decimal"));
     }
 
     @Test
     public void handleMethodArgumentNotValidExceptionMobileOrEmailTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("pradeep","admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("hidubai","admit"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 " \"lead_id\" :123,\n" +
@@ -51,7 +51,7 @@ public class RequestValidationExceptionHandlerTest {
 
     @Test
     public void handleMethodArgumentNotValidExceptionMobileFormatTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("pradeep","admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("hidubai","admit"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 " \"lead_id\" :123,\n" +
@@ -66,7 +66,7 @@ public class RequestValidationExceptionHandlerTest {
 
     @Test
     public void handleMethodArgumentNotValidExceptionEmailFormatTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("pradeep","admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("hidubai","admit"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 " \"lead_id\" :123,\n" +
@@ -77,6 +77,23 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid email id formate ex : anything@dmain.com"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid email id formate ex : anything@domain.com"));
+    }
+
+
+    @Test
+    public void handleMethodArgumentNotValidExceptionModeTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(httpBasic("hidubai","admit"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                " \"lead_id\" :123,\n" +
+                                " \"source\" : \"landing page\",\n" +
+                                " \"lead_name\" : \"Fazil\",\n" +
+                                " \"lead_mobile_number\" : \"(123)123-1234\",\n" +
+                                "\"lead_email_id\":\"xsdf\",\n" +
+                                " \"preferred_mobile_communication_mode\" : \"TEST\",\n" +
+                                " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
+                                "}"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid enum value. Accepted values are [SMS, WHATSAPP, PUSH_NOTIFICATION]"));
     }
 }

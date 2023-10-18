@@ -1,5 +1,6 @@
 package org.hidubai.publisher.api;
 
+import org.hidubai.publisher.constants.HttpCode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +22,7 @@ public class PublisherApiTest {
 
     @Test
     public void testApi() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(csrf()).with(httpBasic("pradeep", "admit"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/lead/publish").with(csrf()).with(httpBasic("hidubai", "admit"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 " \"lead_id\" :123,\n" +
@@ -32,7 +33,7 @@ public class PublisherApiTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}")).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("200"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(HttpCode.PUBLISHED.name()));
     }
 
     @Test
