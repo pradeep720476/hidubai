@@ -6,7 +6,8 @@ import java.util.stream.Stream;
 public enum CommunicationType implements Serializable {
     SMS,
     PUSH_NOTIFICATION,
-    WHATSAPP;
+    WHATSAPP,
+    EMAIL;
 
     public static String[] availableValues() {
         return Stream.of(values()).map(type -> type.name()).toArray(String[]::new);

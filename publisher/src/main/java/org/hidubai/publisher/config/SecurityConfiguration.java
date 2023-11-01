@@ -1,6 +1,6 @@
 package org.hidubai.publisher.config;
 
-import org.hidubai.publisher.handler.SecurityExceptionHandler;
+import org.hidubai.publisher.handler.CustomeAccessDeniedExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -22,12 +22,13 @@ public class SecurityConfiguration {
 
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity httpSecurity, SecurityExceptionHandler handler) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf((csrf) -> csrf
                         .ignoringRequestMatchers("/**"))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/leads/**")
                         .permitAll().anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new CustomeAccessDeniedExceptionHandler()))
+                .httpBasic(Customizer.withDefaults()).exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new CustomeAccessDeniedExceptionHandler()));
         return httpSecurity.build();
     }
 

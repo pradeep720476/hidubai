@@ -1,9 +1,6 @@
 package org.hidubai.subscriber.factory;
 
-import org.hidubai.subscriber.notification.Notification;
-import org.hidubai.subscriber.notification.PushNotificationService;
-import org.hidubai.subscriber.notification.SMSNotificationService;
-import org.hidubai.subscriber.notification.WhatAppNotificationService;
+import org.hidubai.subscriber.notification.*;
 import org.hidubai.rabbitmq.constant.CommunicationType;
 
 import java.util.Optional;
@@ -17,6 +14,8 @@ public final class SubscriberFactory {
                 return Optional.of(new WhatAppNotificationService());
             case PUSH_NOTIFICATION:
                 return Optional.of(new PushNotificationService());
+            case EMAIL:
+                return Optional.of(new EmailNotificationService());
         }
         return Optional.empty();
     }

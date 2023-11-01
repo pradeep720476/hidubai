@@ -5,17 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
-@Builder(toBuilder = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PublisherResponse {
+public class Error extends BasicMeta {
 
-    private Meta meta;
-
-    private List<Error> errors;
+    private String code;
+    private String message;
 }

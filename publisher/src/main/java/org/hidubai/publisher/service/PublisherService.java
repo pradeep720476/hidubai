@@ -2,7 +2,9 @@ package org.hidubai.publisher.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hidubai.publisher.config.MQConnectionDetail;
+import org.hidubai.publisher.constants.Helper;
 import org.hidubai.publisher.constants.HttpCode;
+import org.hidubai.publisher.dto.Meta;
 import org.hidubai.publisher.dto.PublisherRequest;
 import org.hidubai.publisher.dto.PublisherResponse;
 import org.hidubai.publisher.stratergy.QueueSelectionStrategy;
@@ -56,9 +58,11 @@ public class PublisherService implements Publisher {
             }
         });
 
-        return PublisherResponse.builder().lead_id(publisherRequest.getLeadId())
-                .code(HttpCode.PUBLISHED.name())
-                .message("Message has been published successfully.").build();
+        return PublisherResponse.builder()
+                .meta(Meta.builder()
+                        .id(publisherRequest.getLeadId())
+                        .code(String.valueOf(HttpCode.PUBLISHED.getCode()))
+                        .message("Message has been published successfully.").build()).build();
 
     }
 

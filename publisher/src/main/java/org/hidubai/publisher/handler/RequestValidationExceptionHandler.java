@@ -1,5 +1,6 @@
 package org.hidubai.publisher.handler;
 
+import org.hidubai.publisher.constants.Helper;
 import org.hidubai.publisher.dto.PublisherResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
-import static org.hidubai.publisher.constants.HttpCode.VALIDATION_ERROR_10001;
-
 @ControllerAdvice
 public class RequestValidationExceptionHandler {
     public static final Logger LOGGER = LoggerFactory.getLogger(RequestValidationExceptionHandler.class);
@@ -24,19 +23,17 @@ public class RequestValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public PublisherResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-        LOGGER.error("Error Response: {}", PublisherResponse.builder()
-                .code(String.valueOf(VALIDATION_ERROR_10001))
-                .message(messageHelper(exception.getBindingResult().getFieldErrors()))
-                .build());
-        return PublisherResponse.builder()
-                .code(String.valueOf(VALIDATION_ERROR_10001))
-                .message(messageHelper(exception.getBindingResult().getFieldErrors()))
-                .build();
+        PublisherResponse response = PublisherResponse.builder().errors(Helper.errorHelper(exception.getBindingResult().getFieldErrors())).build();
+        LOGGER.error("Error Response: {}",response );
+        return response;
     }
 
+
+
+    @Deprecated
     private String messageHelper(List<FieldError> fieldErrors) {
         String message = null;
-        for(FieldError error : fieldErrors){
+        for (FieldError error : fieldErrors) {
             message = error.getDefaultMessage();
         }
         return message;

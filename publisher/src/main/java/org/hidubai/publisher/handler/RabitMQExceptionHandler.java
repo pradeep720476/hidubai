@@ -1,5 +1,6 @@
 package org.hidubai.publisher.handler;
 
+import org.hidubai.publisher.constants.Helper;
 import org.hidubai.publisher.dto.PublisherResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,7 @@ public class RabitMQExceptionHandler {
     public PublisherResponse handleRabbitMQException(AmqpException exception) {
         LOGGER.error("Error Response: {}", exception.getCause());
         return PublisherResponse.builder()
-                .code(String.valueOf(RABIT_MQ_ERROR_50001.getCode()))
-                .message(exception.getMessage())
+                .errors(Helper.errorHelper(String.valueOf(RABIT_MQ_ERROR_50001.getCode()), exception.getMessage()))
                 .build();
     }
 }
