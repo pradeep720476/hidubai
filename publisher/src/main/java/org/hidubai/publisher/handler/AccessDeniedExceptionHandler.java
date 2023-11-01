@@ -16,15 +16,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static org.hidubai.publisher.constants.HttpCode.AUTH_ERROR_20001;
 
+//TODO need to check why Exception is not coming here Should have came
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class AccessDeniedExceptionHandler {
     public static final Logger LOGGER = LoggerFactory.getLogger(AccessDeniedExceptionHandler.class);
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<PublisherResponse> handleAccessDeniedExceptionHandler(Exception exception) {
+    public ResponseEntity<PublisherResponse> handleAccessDeniedExceptionHandler(AccessDeniedException exception) {
         LOGGER.error("Error Response: {}", exception.getCause());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(PublisherResponse.builder()
                 .errors(Helper.errorHelper(String.valueOf(AUTH_ERROR_20001.getCode()), exception.getMessage())).build());

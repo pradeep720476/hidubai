@@ -33,7 +33,7 @@ public class PublisherApiTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}")).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(HttpCode.PUBLISHED.name()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.meta.code").value(HttpCode.PUBLISHED.getCode()));
     }
 
     @Test

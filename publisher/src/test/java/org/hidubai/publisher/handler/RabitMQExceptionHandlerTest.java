@@ -56,7 +56,7 @@ public class RabitMQExceptionHandlerTest {
                         " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                         " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                         "}")).andExpect(MockMvcResultMatchers.status().isInternalServerError())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("50001"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$..errors[0].code").value("50001"));
         ;
     }
 }

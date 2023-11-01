@@ -32,7 +32,7 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("lead id cannot be empty or must be positive number without decimal"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message").value("lead id cannot be empty or must be positive number without decimal"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("lead_mobile_number or lead_email_id is required"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message").value("lead_mobile_number or lead_email_id is required"));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid international lead_mobile_number format: ex: (123)123-1234"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message").value("Invalid international lead_mobile_number format: ex: (123)123-1234"));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"PUSH_NOTIFICATION\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid email id formate ex : anything@domain.com"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message").value("Invalid email id formate ex : anything@domain.com"));
     }
 
 
@@ -94,6 +94,6 @@ public class RequestValidationExceptionHandlerTest {
                                 " \"preferred_mobile_communication_mode\" : \"TEST\",\n" +
                                 " \"lead_message\" : \"how are oyu bud tytessy\"\n" +
                                 "}"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid enum value. Accepted values are [SMS, WHATSAPP, PUSH_NOTIFICATION]"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()).andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].code").value("VALIDATION_ERROR_10001"));
     }
 }
